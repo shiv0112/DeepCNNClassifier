@@ -2,7 +2,7 @@ import logging
 import os
 from pathlib import Path
 
-package_name = "deepClassifier"
+package_name = "DeepCNNClassifier"
 
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s]: %(message)s: ')
 
