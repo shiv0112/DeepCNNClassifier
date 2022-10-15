@@ -1,7 +1,7 @@
 import os
 from box.exceptions import BoxValueError
 import yaml
-from deepClassifier import logger
+from DeepCNNClassifier import logger
 import json
 import joblib
 from ensure import ensure_annotations
