@@ -5,6 +5,7 @@ from DeepCNNClassifier.entity import DataIngestionConfig
 from DeepCNNClassifier import logger
 from DeepCNNClassifier.utils import get_size
 from tqdm import tqdm
+from pathlib import Path
 
 class DataIngestion:
     def __init__(self,config = DataIngestionConfig):
@@ -19,7 +20,7 @@ class DataIngestion:
             )
             logger.info(f"{filename} downloaded with following info: \n{headers}")
         else:
-            logger.info("File of size {get_size(self.config.local_data_file)} KB already exists")
+            logger.info(f"File of size: {get_size(Path(self.config.local_data_file))} KB already exists")
     
     def _get_updated_list_of_files(self, list_of_files):
         return [f for f in list_of_files if f.endswith(".jpg") and ("Cat" in f or "Dog" in f)]
