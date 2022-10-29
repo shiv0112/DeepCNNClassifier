@@ -1,6 +1,6 @@
-from deepClassifier.config import ConfigurationManager
-from deepClassifier.components import PrepareCallback, Training
-from deepClassifier import logger
+from DeepCNNClassifier.config import ConfigurationManager
+from DeepCNNClassifier.component import PrepareCallback, Training
+from DeepCNNClassifier import logger
 
 STAGE_NAME = "Training"
 

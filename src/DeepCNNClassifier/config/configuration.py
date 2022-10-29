@@ -1,6 +1,8 @@
+import os
+from pathlib import Path
 from DeepCNNClassifier.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH
 from DeepCNNClassifier.utils import read_yaml, create_directories
-from deepClassifier.entity import (
+from DeepCNNClassifier.entity import (
     DataIngestionConfig, 
     PrepareBaseModelConfig, 
     PrepareCallbacksConfig,
@@ -13,7 +15,7 @@ class ConfigurationManager:
         self.params = read_yaml(params_filepath)
         create_directories([self.config.artifacts_root])
 
-    def get_data_ingestion_config(self):
+    def get_data_ingestion_config(self) -> DataIngestionConfig:
         config = self.config.data_ingestion
 
         create_directories([config.root_dir])
