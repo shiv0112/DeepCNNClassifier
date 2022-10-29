@@ -1,2 +1,6 @@
-from DeepCNNClassifier.entity.config_entity import DataIngestionConfig
-from DeepCNNClassifier.entity.prepare_base_model_entity import PrepareBaseModelConfig
+from deepClassifier.entity.config_entity import (
+    DataIngestionConfig, 
+    PrepareBaseModelConfig, 
+    PrepareCallbacksConfig,
+    TrainingConfig
+)

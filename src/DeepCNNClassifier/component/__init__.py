@@ -1,2 +1,5 @@
 from DeepCNNClassifier.component.data_ingestion import DataIngestion
 from DeepCNNClassifier.component.prepare_base_model import PrepareBaseModel
+from DeepCNNClassifier.component.prepare_base_model import PrepareBaseModel
+from DeepCNNClassifier.component.prepare_callback import PrepareCallback
+from DeepCNNClassifier.component.training import Training
