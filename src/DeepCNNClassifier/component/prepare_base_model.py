@@ -1,6 +1,7 @@
 import tensorflow as tf
 from DeepCNNClassifier.entity import PrepareBaseModelConfig
 from DeepCNNClassifier import logger
+from pathlib import Path
 
 class PrepareBaseModel:
     def __init__(self, config: PrepareBaseModelConfig):
