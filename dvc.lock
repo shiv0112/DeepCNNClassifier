@@ -1,16 +1,100 @@
-schema: "2.0"
+schema: '2.0'
 stages:
   data_ingestion:
     cmd: python src\DeepCNNClassifier\pipeline\stage_01_data_ingestion.py
     deps:
-      - path: configs/config.yaml
-        md5: b916ecc8cf38afa7345398d9cfa9bdbe
-        size: 827
-      - path: src\DeepCNNClassifier\pipeline\stage_01_data_ingestion.py
-        md5: 7a16c1ed6f1d763c56e48fb3540b6d05
-        size: 709
+    - path: configs/config.yaml
+      md5: b916ecc8cf38afa7345398d9cfa9bdbe
+      size: 827
+    - path: src\DeepCNNClassifier\pipeline\stage_01_data_ingestion.py
+      md5: 7a16c1ed6f1d763c56e48fb3540b6d05
+      size: 709
     outs:
-      - path: artifacts\data_ingestion\PetImages
-        md5: 3a5cf86541f22c236620ce5b952ad684.dir
-        size: 848866410
-        nfiles: 24998
+    - path: artifacts\data_ingestion\PetImages
+      md5: 3a5cf86541f22c236620ce5b952ad684.dir
+      size: 848866410
+      nfiles: 24998
+  prepare_base_model:
+    cmd: python src\DeepCNNClassifier\pipeline\stage_02_prepare_base_model.py
+    deps:
+    - path: configs/config.yaml
+      md5: b916ecc8cf38afa7345398d9cfa9bdbe
+      size: 827
+    - path: src\DeepCNNClassifier\pipeline\stage_02_prepare_base_model.py
+      md5: 24e78577c7615967760a306f71ab68e0
+      size: 711
+    params:
+      params.yaml:
+        CLASSES: 2
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+        INCLUDE_TOP: false
+        LEARNING_RATE: 0.01
+        WEIGHTS: imagenet
+    outs:
+    - path: artifacts/prepare_base_model
+      md5: 8055033e67358d1599f694ee677f4f93.dir
+      size: 118052280
+      nfiles: 2
+  training:
+    cmd: python src\DeepCNNClassifier\pipeline\stage_03_training.py
+    deps:
+    - path: artifacts/data_ingestion/PetImages
+      md5: 3a5cf86541f22c236620ce5b952ad684.dir
+      size: 848866410
+      nfiles: 24998
+    - path: artifacts/prepare_base_model
+      md5: 8055033e67358d1599f694ee677f4f93.dir
+      size: 118052280
+      nfiles: 2
+    - path: configs/config.yaml
+      md5: b916ecc8cf38afa7345398d9cfa9bdbe
+      size: 827
+    - path: src\DeepCNNClassifier\component\prepare_callback.py
+      md5: c8630732748e3e3602cb72a0ad450872
+      size: 917
+    - path: src\DeepCNNClassifier\pipeline\stage_03_training.py
+      md5: 310e8e5099102c4ae2f9eb916644c0fa
+      size: 1009
+    params:
+      params.yaml:
+        AUGMENTATION: true
+        BATCH_SIZE: 16
+        EPOCHS: 1
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+    outs:
+    - path: artifacts/training/model.h5
+      md5: b2a0f104cc405573fbc52c76caae349f
+      size: 59134488
+  evaluation:
+    cmd: python src/DeepCNNClassifier/pipeline/stage_04_evaluation.py
+    deps:
+    - path: artifacts/data_ingestion/PetImages
+      md5: 3a5cf86541f22c236620ce5b952ad684.dir
+      size: 848866410
+      nfiles: 24998
+    - path: artifacts/training/model.h5
+      md5: b2a0f104cc405573fbc52c76caae349f
+      size: 59134488
+    - path: configs/config.yaml
+      md5: b916ecc8cf38afa7345398d9cfa9bdbe
+      size: 827
+    - path: src/DeepCNNClassifier/pipeline/stage_04_evaluation.py
+      md5: 3050a3f8c80780c5dc7aa19ca4ef423d
+      size: 707
+    params:
+      params.yaml:
+        BATCH_SIZE: 16
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+    outs:
+    - path: scores.json
+      md5: 924bd7f585722d2c2b1de00aaae741f9
+      size: 73
