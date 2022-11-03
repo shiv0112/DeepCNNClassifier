@@ -1,28 +1,28 @@
 schema: '2.0'
 stages:
   data_ingestion:
-    cmd: python src\DeepCNNClassifier\pipeline\stage_01_data_ingestion.py
+    cmd: python src/DeepCNNClassifier/pipeline/stage_01_data_ingestion.py
     deps:
     - path: configs/config.yaml
       md5: b916ecc8cf38afa7345398d9cfa9bdbe
-      size: 827
-    - path: src\DeepCNNClassifier\pipeline\stage_01_data_ingestion.py
+      size: 806
+    - path: src/DeepCNNClassifier/pipeline/stage_01_data_ingestion.py
       md5: 7a16c1ed6f1d763c56e48fb3540b6d05
-      size: 709
+      size: 685
     outs:
-    - path: artifacts\data_ingestion\PetImages
+    - path: artifacts/data_ingestion/PetImages
       md5: 3a5cf86541f22c236620ce5b952ad684.dir
       size: 848866410
       nfiles: 24998
   prepare_base_model:
-    cmd: python src\DeepCNNClassifier\pipeline\stage_02_prepare_base_model.py
+    cmd: python src/DeepCNNClassifier/pipeline/stage_02_prepare_base_model.py
     deps:
     - path: configs/config.yaml
       md5: b916ecc8cf38afa7345398d9cfa9bdbe
-      size: 827
-    - path: src\DeepCNNClassifier\pipeline\stage_02_prepare_base_model.py
+      size: 806
+    - path: src/DeepCNNClassifier/pipeline/stage_02_prepare_base_model.py
       md5: 24e78577c7615967760a306f71ab68e0
-      size: 711
+      size: 691
     params:
       params.yaml:
         CLASSES: 2
@@ -35,8 +35,8 @@ stages:
         WEIGHTS: imagenet
     outs:
     - path: artifacts/prepare_base_model
-      md5: 8055033e67358d1599f694ee677f4f93.dir
-      size: 118052280
+      md5: 022428d01d447ff1d4762bc40fd4a2c2.dir
+      size: 118053368
       nfiles: 2
   training:
     cmd: python src\DeepCNNClassifier\pipeline\stage_03_training.py

@@ -1,16 +1,16 @@
 stages:
   data_ingestion:
-    cmd: python src\DeepCNNClassifier\pipeline\stage_01_data_ingestion.py
+    cmd: python src/DeepCNNClassifier/pipeline/stage_01_data_ingestion.py
     deps:
-      - src\DeepCNNClassifier\pipeline\stage_01_data_ingestion.py
+      - src/DeepCNNClassifier/pipeline/stage_01_data_ingestion.py
       - configs/config.yaml
     outs:
-      - artifacts\data_ingestion\PetImages
+      - artifacts/data_ingestion/PetImages
 
   prepare_base_model:
-    cmd: python src\DeepCNNClassifier\pipeline\stage_02_prepare_base_model.py
+    cmd: python src/DeepCNNClassifier/pipeline/stage_02_prepare_base_model.py
     deps:
-      - src\DeepCNNClassifier\pipeline\stage_02_prepare_base_model.py
+      - src/DeepCNNClassifier/pipeline/stage_02_prepare_base_model.py
       - configs/config.yaml
     params:
       - IMAGE_SIZE
@@ -22,10 +22,10 @@ stages:
       - artifacts/prepare_base_model
 
   training:
-    cmd: python src\DeepCNNClassifier\pipeline\stage_03_training.py
+    cmd: python src/DeepCNNClassifier/pipeline/stage_03_training.py
     deps:
-      - src\DeepCNNClassifier\pipeline\stage_03_training.py
-      - src\DeepCNNClassifier\component\prepare_callback.py
+      - src/DeepCNNClassifier/pipeline/stage_03_training.py
+      - src/DeepCNNClassifier/component/prepare_callback.py
       - configs/config.yaml
       - artifacts/data_ingestion/PetImages
       - artifacts/prepare_base_model
