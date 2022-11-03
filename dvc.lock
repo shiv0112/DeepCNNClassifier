@@ -39,25 +39,25 @@ stages:
       size: 118053368
       nfiles: 2
   training:
-    cmd: python src\DeepCNNClassifier\pipeline\stage_03_training.py
+    cmd: python src/DeepCNNClassifier/pipeline/stage_03_training.py
     deps:
     - path: artifacts/data_ingestion/PetImages
       md5: 3a5cf86541f22c236620ce5b952ad684.dir
       size: 848866410
       nfiles: 24998
     - path: artifacts/prepare_base_model
-      md5: 8055033e67358d1599f694ee677f4f93.dir
-      size: 118052280
+      md5: 022428d01d447ff1d4762bc40fd4a2c2.dir
+      size: 118053368
       nfiles: 2
     - path: configs/config.yaml
       md5: b916ecc8cf38afa7345398d9cfa9bdbe
-      size: 827
-    - path: src\DeepCNNClassifier\component\prepare_callback.py
+      size: 806
+    - path: src/DeepCNNClassifier/component/prepare_callback.py
       md5: c8630732748e3e3602cb72a0ad450872
-      size: 917
-    - path: src\DeepCNNClassifier\pipeline\stage_03_training.py
-      md5: 310e8e5099102c4ae2f9eb916644c0fa
-      size: 1009
+      size: 887
+    - path: src/DeepCNNClassifier/pipeline/stage_03_training.py
+      md5: d6bffe74eeeff4a10346e3445aff4468
+      size: 1071
     params:
       params.yaml:
         AUGMENTATION: true
@@ -69,8 +69,8 @@ stages:
         - 3
     outs:
     - path: artifacts/training/model.h5
-      md5: b2a0f104cc405573fbc52c76caae349f
-      size: 59134488
+      md5: d2917dc90ac0e26283db309f1836fbe6
+      size: 59135136
   evaluation:
     cmd: python src/DeepCNNClassifier/pipeline/stage_04_evaluation.py
     deps:
@@ -79,14 +79,14 @@ stages:
       size: 848866410
       nfiles: 24998
     - path: artifacts/training/model.h5
-      md5: b2a0f104cc405573fbc52c76caae349f
-      size: 59134488
+      md5: d2917dc90ac0e26283db309f1836fbe6
+      size: 59135136
     - path: configs/config.yaml
       md5: b916ecc8cf38afa7345398d9cfa9bdbe
-      size: 827
+      size: 806
     - path: src/DeepCNNClassifier/pipeline/stage_04_evaluation.py
       md5: 3050a3f8c80780c5dc7aa19ca4ef423d
-      size: 707
+      size: 686
     params:
       params.yaml:
         BATCH_SIZE: 16
@@ -96,5 +96,5 @@ stages:
         - 3
     outs:
     - path: scores.json
-      md5: 924bd7f585722d2c2b1de00aaae741f9
-      size: 73
+      md5: 70c9f063fac65960646059ae76390dfc
+      size: 71
