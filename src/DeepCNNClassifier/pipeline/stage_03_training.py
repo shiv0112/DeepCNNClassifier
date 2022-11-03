@@ -1,6 +1,10 @@
 from DeepCNNClassifier.config import ConfigurationManager
 from DeepCNNClassifier.component import PrepareCallback, Training
 from DeepCNNClassifier import logger
+import tensorflow as tf
+
+print("Switching to GPU")
+tf.config.list_physical_devices('GPU')
 
 STAGE_NAME = "Training"
 
